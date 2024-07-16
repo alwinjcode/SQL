@@ -1,0 +1,44 @@
+# This project was written using data from the following Spotify dataset:
+
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness decimal(8,7) NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL )
+
+# The following data was obtained after inserting Spotifydata.csv into the table.
+#1. Find the artist and track associated with the highest popularity, danceability, and energy.
+SELECT
+artist_name
+,track_name
+,MAX(popularity)
+,MAX(danceability)
+,MAX(energy)
+FROM BIT_DB.spotifydata
+GROUP BY artist_name, track_name;
+
+#2. Find a list of the top 15 artists based on popularity of music tracks.
+SELECT track_name, artist_name, popularity
+FROM BIT_DB.spotifydata
+ORDER BY popularity desc
+LIMIT 15; 
+
+#3. Find a list of 5 tracks with the least danceability.
+SELECT artist_name,track_name,MIN(danceability)
+FROM BIT_DB.spotifydata
+GROUP BY artist_name, track_name
+LIMIT 5;
